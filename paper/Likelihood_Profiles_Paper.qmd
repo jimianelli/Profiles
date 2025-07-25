@@ -24,6 +24,16 @@ csl: elsevier-harvard.csl
 
 Likelihood profiles are commonly used to evaluate parameter identifiability and model behavior in fisheries stock assessments. Traditionally, these profiles are constructed using frequentist maximum likelihood estimation (MLE) by fixing parameters and re-optimizing the likelihood. However, Bayesian methods, particularly those using Markov chain Monte Carlo (MCMC) sampling, provide posterior distributions from which marginal profiles can also be constructed.
 
+# Introduction
+
+Likelihood profiles are widely used in fisheries stock assessment to evaluate parameter identifiability and model behavior. Traditionally, these are constructed using frequentist maximum likelihood estimation (MLE), by fixing a parameter of interest and optimizing the remaining parameters. However, Bayesian workflows offer an alternative means to explore likelihood structure via marginal posterior distributions, enabling broader insights into prior sensitivity, confounding, and model robustness.
+
+Recent advances in computational tools and Bayesian workflows have facilitated the practical application of these approaches in data-rich assessments. Monnahan (2024) outlines best practices for modern Bayesian analysis in fisheries, emphasizing the importance of diagnostics, prior predictive checks, and posterior predictive validation to ensure transparent and reproducible inferences [@monnahan2024]. These techniques complement classical profile likelihoods by embedding them within a fuller probabilistic framework.
+
+Software such as `adnuts`, `TMB`, and `RTMB` has made it possible to implement efficient MCMC-based estimation in complex models. Monnahan and Kristensen (2018) introduced the `adnuts` package to bring No-U-Turn Sampler (NUTS) methods into ADMB and TMB workflows, improving mixing and scalability for posterior exploration [@monnahan2018]. This has enabled the generation of marginal likelihood profiles directly from posterior samples, offering a practical and flexible alternative to traditional profiling.
+
+In this paper, we compare MLE-based and MCMC-derived likelihood profiles in three case studies—New Zealand rock lobster, Southern Bluefin Tuna (SBT), and Eastern Bering Sea pollock—to evaluate when and how these approaches diverge and what this implies for assessment reliability.
+
 This paper compares MLE-based and MCMC-derived likelihood profiles using three case studies: New Zealand rock lobster, Southern Bluefin Tuna (SBT), and Eastern Bering Sea (EBS) pollock. We investigate the consistency and interpretability of profiles across these methods, and demonstrate how deviations between the two can reveal features such as prior influence, confounding, and multimodality.
 
 # Methods
