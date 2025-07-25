@@ -1,0 +1,96 @@
+---
+title: "Comparing Likelihood Profiles from MLE and MCMC in Fisheries Stock Assessment Models"
+author:
+  - name: James Ianelli
+  - name: D'arcy Webber
+date: today
+format:
+  html:
+    toc: true
+    number-sections: true
+    code-fold: true
+  pdf:
+    documentclass: article
+    toc: true
+bibliography: references.bib
+csl: elsevier-harvard.csl
+---
+
+# Introduction
+
+Likelihood profiles are commonly used to evaluate parameter identifiability and model behavior in fisheries stock assessments. Traditionally, these profiles are constructed using frequentist maximum likelihood estimation (MLE) by fixing parameters and re-optimizing the likelihood. However, Bayesian methods, particularly those using Markov chain Monte Carlo (MCMC) sampling, provide posterior distributions from which marginal profiles can also be constructed.
+
+This paper compares MLE-based and MCMC-derived likelihood profiles using three case studies: New Zealand rock lobster, Southern Bluefin Tuna (SBT), and Eastern Bering Sea (EBS) pollock. We investigate the consistency and interpretability of profiles across these methods, and demonstrate how deviations between the two can reveal features such as prior influence, confounding, and multimodality.
+
+# Methods
+
+## Overview of Profile Types
+
+- **MLE Profile**: Constructed by fixing one parameter, optimizing others, and recording log-likelihood.
+- **MCMC Marginal Profile**: Constructed from posterior samples by binning the focal parameter and computing expected likelihood.
+
+## Software and Tools
+
+- ADMB: Used for traditional MLE profiles in rock lobster models
+- RTMB: Used for SBT and pollock models, interfaced with `adnuts`, `decamod`, `TMB` for posterior analysis
+- R packages: `ggplot2`, `coda`, `posterior`, `adnuts`, `decamod`
+
+## MCMC Profile Computation
+
+```r
+#| label: mcmc-profile-example
+#| message: false
+#| warning: false
+
+library(adnuts)
+posterior <- readRDS("sbt_mcmc_samples.rds")
+param <- "steepness"
+bins <- seq(0.3, 1.0, by=0.02)
+marg_like <- compute_marginal_profile(posterior, param, bins)
+plot_profile(marg_like, mle_profile="sbt_mle_profile.csv")
+```
+
+# Results
+
+## New Zealand Rock Lobster
+
+We compare the log-likelihood profiles across data components for the recruitment parameter \$R\_0\$.
+
+\::: {.quarto-figure #fig-rocklobster-profile layout-ncol=2}  :::
+
+- Sex-ratio component shows substantial deviation between MLE and MCMC
+- Prior influence and nonlinearity are more apparent in marginal profiles
+- Diagnostic values (e.g., "Dev. exp.") indicate divergence magnitude
+
+## Southern Bluefin Tuna
+
+Profiles were generated from an RTMB model using `sample_sparse_tmb()` from the `adnuts` package. We focus on steepness (\$h\$) and recruitment scale (\$R\_0\$).
+
+\::: {.quarto-figure #fig-sbt-steepness layout-ncol=2}  :::
+
+- Profiles are generally consistent, with prior influence more visible in marginal plots
+- Tail behavior reveals some mild skewness and identifiability limits
+
+\::: {.quarto-figure #fig-sbt-r0 layout-ncol=2}  :::
+
+## EBS Pollock
+
+Profiles were computed for key parameters including M, steepness, and recruitment deviations. Here we show results for natural mortality (M).
+
+\::: {.quarto-figure #fig-pollock-M layout-ncol=2}  :::
+
+- Marginal profile shows multimodality not captured in MLE
+- Prior contribution flattens the peak, reducing identifiability
+- Suggests high posterior uncertainty despite sharp MLE profile
+
+# Discussion
+
+- MLE and MCMC profiles are generally consistent for well-identified parameters with flat priors
+- Divergence often indicates prior influence or nonidentifiability
+- MCMC profiles are useful for exposing complex posteriors, especially when MLE fails to converge
+- Recommendations for practice: consider both methods in assessments, use profiles to evaluate prior sensitivity
+
+# References
+
+\::: {#refs} :::
+
