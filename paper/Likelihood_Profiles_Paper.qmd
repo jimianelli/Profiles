@@ -7,7 +7,7 @@ date: today
 format:
   html:
     toc: true
-    number-sections: true
+    number-sections: false
     code-fold: true
   pdf:
     documentclass: article
@@ -15,6 +15,10 @@ format:
 bibliography: references.bib
 csl: elsevier-harvard.csl
 ---
+
+# Abstract
+
+
 
 # Introduction
 
@@ -56,7 +60,7 @@ plot_profile(marg_like, mle_profile="sbt_mle_profile.csv")
 
 We compare the log-likelihood profiles across data components for the recruitment parameter \$R\_0\$.
 
-\::: {.quarto-figure #fig-rocklobster-profile layout-ncol=2}  :::
+::: {.quarto-figure #fig-rocklobster-profile layout-ncol=2}  :::
 
 - Sex-ratio component shows substantial deviation between MLE and MCMC
 - Prior influence and nonlinearity are more apparent in marginal profiles
@@ -64,20 +68,20 @@ We compare the log-likelihood profiles across data components for the recruitmen
 
 ## Southern Bluefin Tuna
 
-Profiles were generated from an RTMB model using `sample_sparse_tmb()` from the `adnuts` package. We focus on steepness (\$h\$) and recruitment scale (\$R\_0\$).
+Profiles were generated from an RTMB model using `sample_sparse_tmb()` from the `adnuts` package. We focus on steepness ($h$) and recruitment scale ($R_0$).
 
-\::: {.quarto-figure #fig-sbt-steepness layout-ncol=2}  :::
+::: {.quarto-figure #fig-sbt-steepness layout-ncol=2}  :::
 
 - Profiles are generally consistent, with prior influence more visible in marginal plots
 - Tail behavior reveals some mild skewness and identifiability limits
 
-\::: {.quarto-figure #fig-sbt-r0 layout-ncol=2}  :::
+::: {.quarto-figure #fig-sbt-r0 layout-ncol=2}  :::
 
 ## EBS Pollock
 
 Profiles were computed for key parameters including M, steepness, and recruitment deviations. Here we show results for natural mortality (M).
 
-\::: {.quarto-figure #fig-pollock-M layout-ncol=2}  :::
+::: {.quarto-figure #fig-pollock-M layout-ncol=2}  :::
 
 - Marginal profile shows multimodality not captured in MLE
 - Prior contribution flattens the peak, reducing identifiability
@@ -92,5 +96,5 @@ Profiles were computed for key parameters including M, steepness, and recruitmen
 
 # References
 
-\::: {#refs} :::
+::: {#refs} :::
 
